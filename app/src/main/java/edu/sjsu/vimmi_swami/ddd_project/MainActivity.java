@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         intent.setData(Uri.parse("mailto:vimmi.swami@gmail.com"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        Log.d("EMAIL", "SENT!!!!!");
+        Log.d("EMAIL", "SENT!!!!");
     }
 
 
