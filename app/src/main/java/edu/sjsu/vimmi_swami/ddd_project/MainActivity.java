@@ -64,6 +64,22 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        senMagnetometer = senSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        senGyrometer = senSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+
+        // Before any going further in app, check if the sensors required do work in device.
+        Boolean temp1= senSensorManager.registerListener(MainActivity.this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        Boolean temp2=  senSensorManager.registerListener(MainActivity.this, senMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        Boolean temp3= senSensorManager.registerListener(MainActivity.this, senGyrometer, SensorManager.SENSOR_DELAY_NORMAL);
+        if(temp1||temp2||temp3){
+            Toast.makeText(getApplicationContext(), "Some Sensors are not supported! The app will exit now!", Toast.LENGTH_SHORT).show();
+            senSensorManager.unregisterListener(MainActivity.this);
+            finish();
+        }
+
         Context mContext = getApplicationContext();
         File file = new File(mContext.getCacheDir(), "contacts.txt");
         if(!file.exists()){
@@ -84,7 +100,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
 
         setContentView(R.layout.activity_main);
-        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        senSensorManager.registerListener(MainActivity.this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(MainActivity.this, senMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(MainActivity.this, senGyrometer, SensorManager.SENSOR_DELAY_NORMAL);
 
 
         start_stop = (Button)findViewById(R.id.start_stop);
@@ -94,12 +113,6 @@ public class MainActivity extends Activity implements SensorEventListener {
                 if (start_stop.getText().equals("Start!")) {
                     start_stop.setText("Stop!");
                     start_stop.setBackgroundColor(Color.parseColor("#ffcc0000"));
-                    senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                    senMagnetometer = senSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-                    senGyrometer = senSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-                    senSensorManager.registerListener(MainActivity.this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-                    senSensorManager.registerListener(MainActivity.this, senMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
-                    senSensorManager.registerListener(MainActivity.this, senGyrometer, SensorManager.SENSOR_DELAY_NORMAL);
                 } else {
                     senSensorManager.unregisterListener(MainActivity.this);
                     start_stop.setText("Start!");
