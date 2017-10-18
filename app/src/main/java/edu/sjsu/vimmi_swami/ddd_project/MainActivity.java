@@ -4,20 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.widget.Toast;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.Manifest;
 import android.telephony.SmsManager;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.widget.Button;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -28,7 +21,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,8 +30,6 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.sql.Types.INTEGER;
-import static java.sql.Types.NULL;
 
 public class MainActivity extends Activity implements SensorEventListener {
     private static final int SEND_SMS_PERMISSION =0 ;
